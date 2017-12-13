@@ -27,16 +27,16 @@ MongoClient.connect(serverAddress, (err, db) => {
 
     // Insert new doc into the Users (name, age, location)
 
-    // db.collection('Users').insertOne({
-    //     name: 'Daniel S',
-    //     age: 25,
-    //     location: '5 Atwood Rd, Plainview NY, 11803'
-    // }, (err, result) => {
-    //     if (err) {
-    //         return console.log("Unable to insert User");
-    //     }
-    //     console.log(result.ops[0]._id);
-    // });
+    db.collection('Users').insertOne({
+        name: 'Daniel S',
+        age: 25,
+        location: '5 Atwood Rd, Plainview NY, 11803'
+    }, (err, result) => {
+        if (err) {
+            return console.log("Unable to insert User");
+        }
+        console.log(result.ops[0]._id);
+    });
 
     db.close();
 });
