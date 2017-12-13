@@ -37,5 +37,3 @@ Todo.findById(id).then((todo) => {
     }
     console.log('Todo by ID', todo);
 }).catch((e) => console.log(e));
-
-Todo.findB
