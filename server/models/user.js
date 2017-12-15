@@ -57,6 +57,7 @@ UserSchema.methods.generateAuthToken = function () {
         _id: user._id.toHexString(), 
         access
     },'abc123').toString();
+
     user.tokens.push({
         access,
         token
@@ -85,7 +86,7 @@ UserSchema.statics.findByToken = function(token) {
     try{
         decoded = jwt.verify(token, 'abc123');
     } catch (e) {
-        return Promise.reject();
+        return Promise.reject(e);
     }
 
     return User.findOne({'_id': decoded._id,
@@ -96,19 +97,21 @@ UserSchema.statics.findByToken = function(token) {
 
 UserSchema.statics.findByCredentials = function(email, password) {
     var User = this;
-    return User.findOne({email}).then((user) => {
-        if (!user) return Promise.reject();
-        return bcrypt.compare(password, user.password).then((res) => {
-            if (res) return user;
-            return Promise.reject();
-        });
+    return User.findOne({
+        email
+        }).then((user) => {
+            if (!user) return Promise.reject();
+            return bcrypt.compare(password, user.password).then((res) => {
+                if (res) return user;
+                return Promise.reject();
+            });
         // return new Promise((resolve, reject) => {
             // bcrypt.compare(password, user.password, (err, result) => {
                 // if (err || !result) return reject();
                 // resolve(user);
             // });
         // });
-    });
+    }).catch((e) => Promise.reject());
 };
 
 UserSchema.pre('save', function(next) {
