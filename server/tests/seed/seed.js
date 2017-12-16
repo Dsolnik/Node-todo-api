@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const {Todo} = require('./../../models/todo');
 const {User} = require('./../../models/user');
 
-
 const userOneID = new ObjectID(); 
 const userTwoID = new ObjectID(); 
 const users = [{
