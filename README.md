@@ -3,7 +3,7 @@
 Node Todo API
 interface with a MONGODB database to store TODO notes of users.
 
-# DOCUMENTATION:
+## Documentation:
 
 ### GET /todos
 ##### Get the todos of the current user
